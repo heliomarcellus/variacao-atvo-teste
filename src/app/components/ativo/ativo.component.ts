@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { format } from 'date-fns';
 import { ConsultaAtivoService } from '../../services/consulta-ativo.service';
 
 @Component({
@@ -17,18 +18,15 @@ export class AtivoComponent implements OnInit {
       (data) => {
         this.ativoData = data;
         console.log('Dados do ativo:', data);
+
+        // Formatando os rótulos para exibição no gráfico
+        this.ativoData.chart.result[0].timestamp = this.ativoData.chart.result[0].timestamp.map((timestamp: number) =>
+          format(new Date(timestamp * 1000), 'dd/MM/yyyy')
+        );
       },
       (error) => {
         console.error('Erro ao obter dados do ativo:', error);
       }
     );
-  }
-
-  chartHovered(event: any): void {
-    console.log('Chart Hovered', event);
-  }
-
-  chartClicked(event: any): void {
-    console.log('Chart Clicked', event);
   }
 }
