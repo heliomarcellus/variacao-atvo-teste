@@ -1,0 +1,17 @@
+<div class="ativo" *ngIf="ativoData && ativoData.chart && ativoData.chart.result">
+    <h2>Variação do Ativo <span>{{ ativoSymbol }}</span> nos últimos 30 dias</h2>
+
+    <div style="display: block;">
+        <canvas baseChart
+                [datasets]="[{
+                  data: ativoData.chart.result[0].indicators.quote[0].open,
+                  label: 'Variação de Preço'
+                }]"
+                [labels]="ativoData.chart.result[0].timestamp"
+                [options]="{}"
+                [type]="'line'"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)">
+        </canvas>
+    </div>
+</div>
